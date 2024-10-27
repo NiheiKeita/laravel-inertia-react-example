@@ -4,7 +4,7 @@ import { FormEventHandler, useEffect, useRef } from "react"
 export const useUploadImageArea = (
     onImageChange: (images: { url: any; id: any }[]) => void,
     images: { url: any; id: any }[],
-    type: "property" | "maProperty"
+    type: "a" | "b"
 ) => {
 
     const fileInputRef = useRef<HTMLInputElement | null>(null)
@@ -18,7 +18,7 @@ export const useUploadImageArea = (
         for (const file of files) {
             const formData = new FormData()
             formData.append('image', file)
-            const url = type === "property" ? '/api/upload' : '/api/upload/ma'
+            const url = type === "a" ? '/api/upload' : '/api/upload/ma'
 
             try {
                 const response = await fetch(url, {
