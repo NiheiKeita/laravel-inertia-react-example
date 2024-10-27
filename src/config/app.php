@@ -16,7 +16,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', '受注管理システム'),
 
     /*
     |--------------------------------------------------------------------------
@@ -70,7 +70,8 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    // 'timezone' => 'UTC',
+    'timezone' => 'Asia/Tokyo',
 
     /*
     |--------------------------------------------------------------------------
@@ -83,7 +84,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'ja',
 
     /*
     |--------------------------------------------------------------------------
@@ -185,4 +186,16 @@ return [
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
 
+    'notion_api' => env('NOTION_API_URL', ''),
+    'notion_version' => env('NOTION_VERSION', ''),
+    'notion_token' => env('NOTION_TOKEN', ''),
+
+    'image_url' => env('IMAGE_URL', ''),
+    'is_basicauth' => env('IS_BASICAUTH', true),
+    'basicauth_user' => env('BASICKAUTH_USER', 'user'),
+    'basicauth_password' => env('BASICAUTH_PASSWORD', 'password'),
+
+
+    'email' => env('APP_EMAIL', 'info@xs163201.xsrv.jp'),
+    'admin_email' => env('ADMIN_EMAIL', 'admin@example.com'),
 ];
