@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>M&A物件お問い合わせ</title>
+    <title></title>
 </head>
 <body>
     <h1>ユーザ登録が完了しました</h1>
