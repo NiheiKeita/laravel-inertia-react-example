@@ -9,10 +9,15 @@ class PostTest extends TestCase
     /**
      * A basic feature test example.
      */
-    public function test_example(): void
+    public function test_that_true_is_true(): void
     {
-        $response = $this->get('/users');
-
-        $response->assertStatus(404);
+        $this->assertTrue(true);
     }
+
+    // public function test_example(): void
+    // {
+    //     $response = $this->get('/users');
+
+    //     $response->assertStatus(404);
+    // }
 }

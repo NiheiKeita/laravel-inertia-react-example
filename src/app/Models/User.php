@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -23,6 +23,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'tel',
+        'password_token',
     ];
 
     /**
@@ -44,4 +46,22 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::updated(function ($user) {
+            // プランが変更されたかどうかを確認する
+            if ($user->isDirty('plan_id')) {
+                // プランが変更された場合、ログを保存する
+                DB::table('user_plan_logs')->insert([
+                    'user_id' => $user->id,
+                    'plan_id' => $user->plan_id,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+            }
+        });
+    }
 }
