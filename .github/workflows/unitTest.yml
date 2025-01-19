@@ -1,9 +1,9 @@
-name: phpcs
+name: unitTest
 
 on: [pull_request]
 
 jobs:
-  phpcs:
+  phpunit:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -19,6 +19,25 @@ jobs:
       - name: Laravel Settings
         run: |
           docker compose exec -T app cp .env.example .env
+          docker compose exec -T app php artisan key:generate
+      - name: npm
+        run: |
+          docker compose exec app npm ci
+
+      - name: Run PHPStan
+        run: docker compose exec app vendor/bin/phpstan analyze
+        
       - name: composer phpcs .
         run: |
           docker compose exec app composer phpcs .
+      
+      - name: phpunit
+        run: |
+          docker compose exec app php artisan test --debug
+
+      - name: eslint
+        run: npm run lint
+        
+      - name: typeCheck
+        run: npm run type-check
+
