@@ -23,6 +23,8 @@ jobs:
       - name: npm
         run: |
           docker compose exec app npm ci
+      - name: Install Playwright with dependencies
+        run: npx playwright install --with-deps
 
       - name: Run PHPStan
         run: docker compose exec app vendor/bin/phpstan analyze
@@ -40,4 +42,7 @@ jobs:
         
       - name: typeCheck
         run: npm run type-check
+
+      - name: storybookTest
+        run: npm run test-storybook
 
