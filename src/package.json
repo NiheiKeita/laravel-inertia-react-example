@@ -9,7 +9,7 @@
     "lint:fix": "eslint --fix ./resources/js",
     "type-check": "tsc --noEmit",
     "build-storybook": "storybook build",
-    "test-storybook": "start-storybook -p 6006 & wait-on http://localhost:6006 && test-storybook"
+    "test-storybook": "storybook dev -p 6006 & wait-on http://localhost:6006 && test-storybook"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^1.6.1",
