@@ -43,9 +43,10 @@ jobs:
         
       - name: typeCheck
         run: npm run type-check
-
+      - name: Build Storybook 
+        run: npm run build-storybook
+      - name: Serve Storybook
+        run: npx serve storybook-static -l 6006 &
       - name: storybookTest
-        env:
-          LARAVEL_BYPASS_ENV_CHECK: 1
         run: npm run test-storybook
 
