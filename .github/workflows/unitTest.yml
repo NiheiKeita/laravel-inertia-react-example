@@ -45,5 +45,7 @@ jobs:
         run: npm run type-check
 
       - name: storybookTest
+        env:
+          LARAVEL_BYPASS_ENV_CHECK: 1
         run: npm run test-storybook
 
