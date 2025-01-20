@@ -8,7 +8,8 @@
     "lint": "eslint ./resources/js",
     "lint:fix": "eslint --fix ./resources/js",
     "type-check": "tsc --noEmit",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "test-storybook": "storybook dev -p 6006 & wait-on http://localhost:6006 && test-storybook"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^1.6.1",
@@ -23,6 +24,7 @@
     "@storybook/react": "^8.2.8",
     "@storybook/react-vite": "^8.2.8",
     "@storybook/test": "^8.2.8",
+    "@storybook/test-runner": "^0.21.0",
     "@tailwindcss/forms": "^0.5.3",
     "@types/node": "^18.13.0",
     "@types/react": "^18.0.28",
