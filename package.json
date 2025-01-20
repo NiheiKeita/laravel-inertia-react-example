@@ -4,7 +4,9 @@
   },
   "scripts": {
     "prepare": "husky",
+    "ci": "npm --prefix ./src ci",
     "lint": "npm --prefix ./src run lint",
-    "type-check": "npm --prefix ./src run type-check"
+    "type-check": "npm --prefix ./src run type-check",
+    "test-storybook": "npm --prefix ./src run test-storybook"
   }
 }
