@@ -4,7 +4,8 @@ namespace App\Services\Entity\Response;
 
 class Building
 {
-    public function __construct(public array $response)
-    {
-    }
+    /**
+     * @param array<string, mixed> $response
+     */
+    public function __construct(public array $response) {}
 }
