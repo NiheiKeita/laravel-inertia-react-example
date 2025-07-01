@@ -5,6 +5,7 @@ namespace App\Services\Entity\Response;
 class GetBuildingsResponse
 {
     /**
+     * @param array<array<string, mixed>> $response
      * @return Building[]
      */
     public function getResponse(array $response): array
