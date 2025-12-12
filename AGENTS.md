@@ -9,6 +9,8 @@
 - `cd src && npm run build-storybook` → OK（storage シンボリックリンク修正後／chunk size 警告は現状のまま）
 - `cd src && npx playwright install --with-deps`
 - `cd src && npm run test-storybook` → OK（29 suites、6006 が埋まっていたため 6007 で実行）
+- inertiajs/inertia-laravel を `^2.0.14` に更新、`composer update inertiajs/inertia-laravel` → OK
+- （再確認）`docker compose exec app vendor/bin/phpstan analyze` → OK、`docker compose exec app vendor/bin/phpunit --debug` → OK
 
 # メモ
 - Dockerfile ベースを PHP 8.4 に上げ、composer.json の php 要件も `^8.4` に揃えました。
