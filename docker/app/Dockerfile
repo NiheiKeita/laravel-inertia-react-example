@@ -1,4 +1,4 @@
-FROM php:8.3-fpm
+FROM php:8.4-fpm
 
 ENV TZ Asia/Tokyo
 
@@ -15,4 +15,3 @@ COPY ./php.ini /usr/local/etc/php/php.ini
 COPY --from=composer:2.7 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /app
-
