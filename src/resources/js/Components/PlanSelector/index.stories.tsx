@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react'
+import { Meta, StoryObj } from '@storybook/react-vite'
 import { PlanSelector } from '.'
 import { useCallback, useState } from 'react'
 
