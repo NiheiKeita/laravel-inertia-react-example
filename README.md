@@ -2,6 +2,7 @@
 
 [![unitTest](https://github.com/NiheiKeita/laravel-inertia-react-example/actions/workflows/unitTest.yml/badge.svg)](https://github.com/NiheiKeita/laravel-inertia-react-example/actions/workflows/unitTest.yml)
 [![CodeQL](https://github.com/NiheiKeita/laravel-inertia-react-example/actions/workflows/codeql.yml/badge.svg)](https://github.com/NiheiKeita/laravel-inertia-react-example/actions/workflows/codeql.yml)
+[![codecov](https://codecov.io/gh/NiheiKeita/laravel-inertia-react-example/branch/main/graph/badge.svg)](https://codecov.io/gh/NiheiKeita/laravel-inertia-react-example)
 [![Dependabot](https://img.shields.io/badge/Dependabot-enabled-025E8C?logo=dependabot)](./.github/dependabot.yml)
 [![PHP](https://img.shields.io/badge/PHP-8.4-777BB4?logo=php&logoColor=white)](https://www.php.net/)
 [![Laravel](https://img.shields.io/badge/Laravel-12-FF2D20?logo=laravel&logoColor=white)](https://laravel.com/)
@@ -82,9 +83,33 @@ npm run test-storybook           # Storybook テスト
 
 - **Dependabot**: 毎週月曜 9:00 (JST) に npm / Composer / Docker / Actions を自動チェック → minor/patch は自動マージ
 - **CI (unitTest)**: PR と main push で 3並列ジョブ（backend / frontend / storybook）を実行
-- **CodeQL**: PHP / JavaScript のセキュリティスキャン
+- **Codecov**: PR に PHP / React それぞれのカバレッジコメントを自動投稿（目標: backend 80%+ / frontend 70%+）
+- **CodeQL**: JavaScript / TypeScript のセキュリティスキャン
 - **actionlint**: GitHub Actions の lint
-- **commitlint**: Conventional Commits 準拠チェック
+- **commitlint**: Conventional Commits 準拠チェック（commit-msg フックで強制）
+
+## 📝 コミットルール
+
+**Conventional Commits 必須**。husky の commit-msg フックで検証されるため、準拠しないコミットは失敗します。
+
+| prefix | 用途 | 例 |
+|---|---|---|
+| `feat` | 新機能 | `feat: add user register page` |
+| `fix` | バグ修正 | `fix: correct login redirect target` |
+| `chore` | 雑務・依存更新 | `chore: bump storybook to 9.x` |
+| `test` | テスト追加・修正 | `test: add UserRegisterService coverage` |
+| `docs` | ドキュメント | `docs: update AGENTS.md` |
+| `refactor` | 振る舞いを変えない整理 | `refactor: extract form logic to hooks` |
+| `style` | フォーマットのみ | `style: apply phpcs-fix` |
+| `ci` | CI 設定 | `ci: add codecov upload` |
+
+詳細なプロジェクトルール（React/Laravel の構成、テスト方針、DI/DDD の方向性）は **[AGENTS.md](./AGENTS.md)** を参照。
+
+## 🤖 AI アシスタント連携
+
+- **[AGENTS.md](./AGENTS.md)** — Claude Code / Codex / Cursor 共通のプロジェクトルール（単一の正）
+- **[CLAUDE.md](./CLAUDE.md)** — Claude Code 用（AGENTS.md を参照）
+- **[.claude/skills/create-component/](./.claude/skills/create-component/)** — Claude Code の Skill: 規約に沿ったコンポーネント雛形生成
 
 ## 📁 ディレクトリ構成
 

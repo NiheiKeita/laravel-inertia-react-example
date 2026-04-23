@@ -134,6 +134,10 @@ jobs:
         run: npx playwright install-deps chromium
 
       - name: Run Storybook tests (Vitest with coverage)
+        env:
+          # laravel-vite-plugin は CI 環境で HMR サーバ起動を拒否するが、
+          # Vitest ではビルドサーバを立てないので問題なく素通りさせてよい
+          LARAVEL_BYPASS_ENV_CHECK: '1'
         run: npm run test-storybook -- --coverage
 
       - name: Upload frontend coverage to Codecov
