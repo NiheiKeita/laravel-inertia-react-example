@@ -3,7 +3,7 @@ name: unitTest
 on:
   pull_request:
   push:
-    branches: [main]
+    branches: [ main ]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -23,7 +23,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.4'
+          php-version: "8.4"
           extensions: intl, pdo_sqlite, zip, bcmath, mbstring
           coverage: pcov
           tools: composer:v2
@@ -81,8 +81,8 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 'lts/*'
-          cache: 'npm'
+          node-version: "lts/*"
+          cache: "npm"
           cache-dependency-path: src/package-lock.json
 
       - name: Install npm dependencies
@@ -107,8 +107,8 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 'lts/*'
-          cache: 'npm'
+          node-version: "lts/*"
+          cache: "npm"
           cache-dependency-path: src/package-lock.json
 
       - name: Install npm dependencies
@@ -116,7 +116,9 @@ jobs:
 
       - name: Get Playwright version
         id: playwright-version
-        run: echo "version=$(node -e "console.log(require('playwright/package.json').version)")" >> "$GITHUB_OUTPUT"
+        run: echo "version=$(node -e
+          "console.log(require('playwright/package.json').version)")" >>
+          "$GITHUB_OUTPUT"
 
       - name: Cache Playwright browsers
         uses: actions/cache@v4
@@ -137,7 +139,7 @@ jobs:
         env:
           # laravel-vite-plugin は CI 環境で HMR サーバ起動を拒否するが、
           # Vitest ではビルドサーバを立てないので問題なく素通りさせてよい
-          LARAVEL_BYPASS_ENV_CHECK: '1'
+          LARAVEL_BYPASS_ENV_CHECK: "1"
         run: npm run test-storybook -- --coverage
 
       - name: Upload frontend coverage to Codecov
