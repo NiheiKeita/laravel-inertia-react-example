@@ -1,4 +1,4 @@
-import type { Preview } from "@storybook/react"
+import type { Preview } from "@storybook/react-vite"
 import "../resources/css/app.css"
 import { initialize, mswLoader } from 'msw-storybook-addon'
 
@@ -16,8 +16,8 @@ const preview: Preview = {
     loaders: [mswLoader],
 }
 
-global.route = (name, params, absolute) => {
-    return `/${name}`
-}
+// Storybook/Vitest ブラウザ環境の両方で動くよう globalThis を使う
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+;(globalThis as any).route = (name: string) => `/${name}`
 
 export default preview

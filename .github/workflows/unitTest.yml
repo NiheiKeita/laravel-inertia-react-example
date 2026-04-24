@@ -1,48 +1,152 @@
 name: unitTest
 
-on: [pull_request]
+on:
+  pull_request:
+  push:
+    branches: [ main ]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  phpunit:
+  backend:
+    name: PHP (PHPStan / PHPCS / PHPUnit)
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
     defaults:
       run:
         working-directory: ./src
     steps:
-      - uses: actions/checkout@v2
-      - name: dokcer-compose up
-        run: |
-          docker compose up -d
-      - name: composer install
-        run: |
-          docker compose exec app composer install
-      - name: Laravel Settings
-        run: |
-          docker compose exec -T app cp .env.example .env
-          docker compose exec -T app php artisan key:generate
-      - name: Run PHPStan
-        run: docker compose exec app vendor/bin/phpstan analyze
-      - name: composer phpcs .
-        run: |
-          docker compose exec app composer phpcs .
-      - name: phpunit
-        run: |
-          docker compose exec app vendor/bin/phpunit --debug
-          
-      - name: npm
-        run: |
-          npm ci
-      - name: eslint
-        run: npm run lint
-      - name: typeCheck
-        run: npm run type-check
-      - name: Build Storybook 
-        run: npm run build-storybook
-      - name: Serve Storybook
-        run: npx serve storybook-static -l 6006 &
-      - name: Install Playwright with dependencies
-        run: npx playwright install --with-deps
-      - name: storybookTest
-        run: npm run test-storybook
+      - uses: actions/checkout@v4
 
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.4"
+          extensions: intl, pdo_sqlite, zip, bcmath, mbstring
+          coverage: pcov
+          tools: composer:v2
+
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> "$GITHUB_OUTPUT"
+
+      - name: Cache composer dependencies
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('src/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      - name: Install composer dependencies
+        run: composer install --prefer-dist --no-progress --no-interaction
+
+      - name: Prepare Laravel environment
+        run: |
+          cp .env.example .env
+          php artisan key:generate
+          mkdir -p database
+          touch database/database.sqlite
+          php artisan migrate --force
+
+      - name: PHPStan
+        run: vendor/bin/phpstan analyze --no-progress
+
+      - name: PHPCS
+        run: composer phpcs .
+
+      - name: PHPUnit (with coverage)
+        run: vendor/bin/phpunit --coverage-clover=coverage.xml
+
+      - name: Upload PHP coverage to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          files: src/coverage.xml
+          flags: backend
+          name: php-coverage
+          fail_ci_if_error: false
+          token: ${{ secrets.CODECOV_TOKEN }}
+
+  frontend:
+    name: Frontend (ESLint / TypeScript)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: ./src
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "lts/*"
+          cache: "npm"
+          cache-dependency-path: src/package-lock.json
+
+      - name: Install npm dependencies
+        run: npm ci --prefer-offline --no-audit
+
+      - name: ESLint
+        run: npm run lint
+
+      - name: TypeScript type-check
+        run: npm run type-check
+
+  storybook:
+    name: Storybook (Vitest)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: ./src
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "lts/*"
+          cache: "npm"
+          cache-dependency-path: src/package-lock.json
+
+      - name: Install npm dependencies
+        run: npm ci --prefer-offline --no-audit
+
+      - name: Get Playwright version
+        id: playwright-version
+        run: echo "version=$(node -e
+          "console.log(require('playwright/package.json').version)")" >>
+          "$GITHUB_OUTPUT"
+
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        id: playwright-cache
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ steps.playwright-version.outputs.version }}
+
+      - name: Install Playwright Chromium
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: npx playwright install chromium --with-deps
+
+      - name: Install Playwright system deps (cache hit)
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: npx playwright install-deps chromium
+
+      - name: Run Storybook tests (Vitest with coverage)
+        env:
+          # laravel-vite-plugin は CI 環境で HMR サーバ起動を拒否するが、
+          # Vitest ではビルドサーバを立てないので問題なく素通りさせてよい
+          LARAVEL_BYPASS_ENV_CHECK: "1"
+        run: npm run test-storybook -- --coverage
+
+      - name: Upload frontend coverage to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          files: src/coverage/clover.xml
+          flags: frontend
+          name: storybook-vitest-coverage
+          fail_ci_if_error: false
+          token: ${{ secrets.CODECOV_TOKEN }}
