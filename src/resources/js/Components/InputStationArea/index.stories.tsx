@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react'
+import { Meta, StoryObj } from '@storybook/react-vite'
 import { InputStationArea } from '.'
 import { useState } from 'react'
 import { Station } from './types'
