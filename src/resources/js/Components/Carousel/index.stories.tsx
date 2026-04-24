@@ -1,10 +1,11 @@
-import { Meta, StoryObj } from '@storybook/react'
+import { Meta, StoryObj } from '@storybook/react-vite'
 import { Carousel } from '.'
 
 const meta: Meta<typeof Carousel> = {
     title: 'components/Carousel',
     component: Carousel,
-    tags: ['autodocs'],
+    // '!test' で Vitest 実行から除外（react-slick の CJS interop が Vitest Browser Mode と相性が悪い既知問題）
+    tags: ['autodocs', '!test'],
 }
 export default meta
 

@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react'
+import { Meta, StoryObj } from '@storybook/react-vite'
 import { UploadImageArea } from '.'
 import { useState } from 'react'
 import { HttpResponse, ResponseResolver, http } from 'msw'
