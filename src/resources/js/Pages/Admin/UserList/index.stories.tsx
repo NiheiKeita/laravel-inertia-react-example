@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react-vite'
-// import { waitFor, within } from '@storybook/testing-library';
 import { UserList } from '.'
+import { users as sampleUsers } from './sample'
 
 const meta: Meta<typeof UserList> = {
   title: 'views/Admin/UserList',
@@ -11,11 +11,21 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 
-export const Test: Story = {
-  play: async ({ canvasElement }) => {
-    // const canvas = within(canvasElement)
-    // await waitFor(async () => {
-    //   canvas.getByText("QuestionListView")
-    // })
+export const Empty: Story = {
+  args: {
+    users: [],
+  },
+}
+
+export const WithUsers: Story = {
+  args: {
+    users: sampleUsers,
+  },
+}
+
+export const WithFlashMessage: Story = {
+  args: {
+    users: sampleUsers,
+    flash: { message: '登録が完了しました' },
   },
 }

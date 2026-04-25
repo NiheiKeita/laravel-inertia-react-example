@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -v \"warning\\\\|webhook\\\\|WebHook\\\\|MSW\\\\|console\\\\|esbuild\\\\|optimizeDeps\\\\|Both esbuild\\\\|^$\")"
+    ]
+  }
+}
