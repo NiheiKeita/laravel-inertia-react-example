@@ -10,6 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 class AdminUser extends Authenticatable
 {
     use HasApiTokens;
+    /** @use HasFactory<\Database\Factories\AdminUserFactory> */
     use HasFactory;
     use Notifiable;
 
