@@ -20,3 +20,5 @@ yarn-error.log
 
 *storybook.log
 src/coverage
+src/coverage-*.xml
+src/code-coverage-results.md
