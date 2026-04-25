@@ -24,7 +24,10 @@ class User extends Authenticatable
         'email',
         'password',
         'tel',
+        'company',
+        'plan_id',
         'password_token',
+        'password_updated',
     ];
 
     /**
