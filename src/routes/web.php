@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\ImageController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Web\LoginController;
 use App\Http\Controllers\Web\PasswordController;
+use App\Http\Controllers\Web\TopController;
 use App\Http\Middleware\VerifyCsrfToken;
 
 /*
@@ -22,6 +23,8 @@ use App\Http\Middleware\VerifyCsrfToken;
 */
 
 Route::group(['middleware' => 'basicauth'], function () {
+    Route::get('/', [TopController::class, 'index'])->name('web.top');
+
     Route::fallback(function () {
         return redirect(route('web.top'));
     });
@@ -53,5 +56,4 @@ Route::group(['middleware' => 'basicauth'], function () {
 
     // API
     Route::post('/api/upload', [ImageController::class, 'upload'])->withoutMiddleware(VerifyCsrfToken::class)->name('upload');
-    Route::post('/api/upload/ma', [ImageController::class, 'maUpload'])->withoutMiddleware(VerifyCsrfToken::class)->name('upload.ma');
 });

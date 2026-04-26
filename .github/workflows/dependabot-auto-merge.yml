@@ -1,5 +1,17 @@
 name: Dependabot auto-merge
-on: pull_request
+
+# 依存性ファイルが変更された PR でのみ trigger（人手の PR では skip 表示も出ない）
+# Dependabot は dependabot.yml で定義したエコシステムのファイルのみ更新するので、
+# ここに同等のパス filter を入れておけば必要な PR は確実に trigger される。
+on:
+  pull_request:
+    paths:
+      - '**/composer.json'
+      - '**/composer.lock'
+      - '**/package.json'
+      - '**/package-lock.json'
+      - 'docker/**/Dockerfile'
+      - '.github/workflows/**'
 
 permissions:
   contents: write
