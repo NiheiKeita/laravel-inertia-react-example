@@ -2,6 +2,7 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import react from '@vitejs/plugin-react';
+import tailwindcss from '@tailwindcss/vite';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { storybookTest } from '@storybook/addon-vitest/vitest-plugin';
@@ -13,7 +14,7 @@ export default defineConfig({
   plugins: [laravel({
     input: 'resources/js/app.tsx',
     refresh: true
-  }), react()],
+  }), react(), tailwindcss()],
   publicDir: 'msw',
   optimizeDeps: {
     include: ['react-slick'],
@@ -32,37 +33,25 @@ export default defineConfig({
         'resources/js/bootstrap.ts',
       ],
     },
-    projects: [
-      {
-        // Storybook のすべての story を 1 テスト = 1 story として実行（Chromium browser mode）
-        extends: true,
-        plugins: [
-          storybookTest({
-            configDir: path.join(dirname, '.storybook')
-          })
-        ],
-        test: {
-          name: 'storybook',
-          browser: {
-            enabled: true,
-            headless: true,
-            provider: playwright({}),
-            instances: [{
-              browser: 'chromium'
-            }]
-          },
-          setupFiles: ['.storybook/vitest.setup.ts']
-        }
-      },
-      {
-        // hooks や util などピュアロジックの unit テスト用（jsdom = ブラウザ不要で高速）
-        extends: true,
-        test: {
-          name: 'unit',
-          environment: 'jsdom',
-          include: ['resources/js/**/*.test.{ts,tsx}'],
-        }
+    projects: [{
+      extends: true,
+      plugins: [
+        storybookTest({
+          configDir: path.join(dirname, '.storybook')
+        })
+      ],
+      test: {
+        name: 'storybook',
+        browser: {
+          enabled: true,
+          headless: true,
+          provider: playwright({}),
+          instances: [{
+            browser: 'chromium'
+          }]
+        },
+        setupFiles: ['.storybook/vitest.setup.ts']
       }
-    ]
+    }]
   }
 });

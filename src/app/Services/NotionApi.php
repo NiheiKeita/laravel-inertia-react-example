@@ -32,7 +32,7 @@ class NotionApi
             $resArray = json_decode((string) $response, true);
             $outPutString = $resArray["results"];
         }
-        // PHP 8.0+ では CurlHandle は自動破棄されるため curl_close() は不要（deprecated）
+        curl_close($ch);
 
         $getBuildingResponse = new GetBuildingsResponse();
         return $getBuildingResponse->getResponse($outPutString);

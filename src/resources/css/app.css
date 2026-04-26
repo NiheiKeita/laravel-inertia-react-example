@@ -1,3 +1,26 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+/* Tailwind v4: forms plugin は CSS 内で読み込む */
+@plugin '@tailwindcss/forms';
+
+/* Tailwind v4: 自動コンテンツ検出のソースを追加で指定（v3 の content[] 相当）
+   .gitignore 配下と node_modules はデフォルトで除外される */
+@source '../../app/**/*.php';
+@source '../../resources/views/**/*.blade.php';
+@source '../../storage/framework/views/*.php';
+
+/* Tailwind v4: theme.extend は @theme で CSS 変数として定義する */
+@theme {
+    /* font-family: 旧 fontFamily.sans / yuGothic に対応 */
+    --font-sans: 'Figtree', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+        'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+    --font-yu-gothic: 'Yu Gothic', sans-serif;
+
+    /* colors.theme.* 群: bg-theme, text-theme-light, ... のように使える */
+    --color-theme: #7fa5fe;
+    --color-theme-light: #67e8f9;
+    --color-theme-dark: #0e7490;
+    --color-theme-default: #292986;
+    --color-theme-background-color: #f0f3f6;
+    --color-theme-sub: #7fa5fe;
+}

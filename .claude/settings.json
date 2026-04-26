@@ -1,12 +1,20 @@
 {
   "permissions": {
     "allow": [
-      "Bash(grep -v \"warning\\\\|webhook\\\\|WebHook\\\\|MSW\\\\|console\\\\|esbuild\\\\|optimizeDeps\\\\|Both esbuild\\\\|^$\")",
-      "Bash(curl -s \"https://api.github.com/repos/NiheiKeita/laravel-inertia-react-example/actions/runs?branch=feat/add_coverage&per_page=3\")",
+      "Bash(git -C /Users/niheikeita/develop/laravel-inertia-react-example log --oneline -5)",
+      "Bash(curl -s \"https://api.github.com/repos/NiheiKeita/laravel-inertia-react-example/actions/runs?branch=$\\(git -C /Users/niheikeita/develop/laravel-inertia-react-example branch --show-current\\)&per_page=5\")",
       "Bash(python3 -c ' *)",
-      "Bash(curl -s \"https://api.github.com/repos/NiheiKeita/laravel-inertia-react-example/actions/runs?branch=feat/add_coverage&per_page=10\")",
-      "Bash(curl -s \"https://api.github.com/repos/NiheiKeita/laravel-inertia-react-example/actions/runs/24937016423/jobs\")",
-      "Bash(git -C /Users/niheikeita/develop/laravel-inertia-react-example log --oneline -5)"
+      "Bash(curl -s \"https://api.github.com/repos/NiheiKeita/laravel-inertia-react-example/actions/runs/24946549797/jobs\")",
+      "Bash(git -C /Users/niheikeita/develop/laravel-inertia-react-example show 83efae3 --stat)",
+      "Bash(git -C /Users/niheikeita/develop/laravel-inertia-react-example diff main..HEAD -- src/package.json)",
+      "Bash(LARAVEL_BYPASS_ENV_CHECK=1 npm run test-storybook -- --coverage)",
+      "Bash(npx @tailwindcss/upgrade --force)",
+      "Bash(git -C /Users/niheikeita/develop/laravel-inertia-react-example status -s)",
+      "Bash(git -C /Users/niheikeita/develop/laravel-inertia-react-example diff src/resources/css/app.css)",
+      "Bash(git -C /Users/niheikeita/develop/laravel-inertia-react-example diff src/postcss.config.js src/package.json)",
+      "Bash(LARAVEL_BYPASS_ENV_CHECK=1 npm run build)",
+      "Bash(LARAVEL_BYPASS_ENV_CHECK=1 npm run test-storybook)",
+      "Bash(npx -y yaml-lint /Users/niheikeita/develop/laravel-inertia-react-example/.github/dependabot.yml)"
     ]
   }
 }

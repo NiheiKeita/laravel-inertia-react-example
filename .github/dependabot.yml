@@ -23,6 +23,8 @@ updates:
           - "patch"
 
   # src/package.json (Laravel フロントエンド)
+  # 各グループに update-types: minor/patch を入れることで
+  # major bump は個別 PR として届き、人手レビューを強制する
   - package-ecosystem: "npm"
     directory: "/src"
     schedule:
@@ -45,6 +47,9 @@ updates:
           - "storybook"
           - "@chromatic-com/storybook"
           - "msw-storybook-addon"
+        update-types:
+          - "minor"
+          - "patch"
       eslint:
         patterns:
           - "eslint"
@@ -52,6 +57,9 @@ updates:
           - "@eslint/*"
           - "typescript-eslint"
           - "globals"
+        update-types:
+          - "minor"
+          - "patch"
       react:
         patterns:
           - "react"
@@ -59,9 +67,15 @@ updates:
           - "react-slick"
           - "slick-carousel"
           - "@headlessui/react"
+        update-types:
+          - "minor"
+          - "patch"
       types:
         patterns:
           - "@types/*"
+        update-types:
+          - "minor"
+          - "patch"
       tailwind:
         patterns:
           - "tailwindcss"
@@ -69,21 +83,36 @@ updates:
           - "autoprefixer"
           - "postcss"
           - "eslint-plugin-tailwindcss"
+        update-types:
+          - "minor"
+          - "patch"
       vite:
         patterns:
           - "vite"
           - "@vitejs/*"
           - "laravel-vite-plugin"
+        update-types:
+          - "minor"
+          - "patch"
       inertia:
         patterns:
           - "@inertiajs/*"
           - "ziggy-js"
+        update-types:
+          - "minor"
+          - "patch"
       msw:
         patterns:
           - "msw"
+        update-types:
+          - "minor"
+          - "patch"
       typescript:
         patterns:
           - "typescript"
+        update-types:
+          - "minor"
+          - "patch"
       other-minor-patch:
         update-types:
           - "minor"
@@ -112,27 +141,45 @@ updates:
           - "laravel-lang/*"
           - "tightenco/ziggy"
           - "inertiajs/*"
+        update-types:
+          - "minor"
+          - "patch"
       phpstan:
         patterns:
           - "larastan/*"
           - "phpstan/*"
+        update-types:
+          - "minor"
+          - "patch"
       phpcs:
         patterns:
           - "squizlabs/php_codesniffer"
           - "slevomat/coding-standard"
           - "sirbrillig/phpcs-variable-analysis"
           - "dealerdirect/phpcodesniffer-composer-installer"
+        update-types:
+          - "minor"
+          - "patch"
       testing:
         patterns:
           - "phpunit/*"
           - "mockery/*"
           - "fakerphp/*"
+        update-types:
+          - "minor"
+          - "patch"
       spatie:
         patterns:
           - "spatie/*"
+        update-types:
+          - "minor"
+          - "patch"
       swagger:
         patterns:
           - "zircote/*"
+        update-types:
+          - "minor"
+          - "patch"
       other-minor-patch:
         update-types:
           - "minor"
@@ -199,6 +246,8 @@ updates:
       include: "scope"
 
   # GitHub Actions
+  # major でも自動マージ workflow 側で弾かれるが、
+  # グループに巻き込まれる事故を防ぐため明示的に minor/patch のみグループ化
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
@@ -216,3 +265,6 @@ updates:
       github-actions:
         patterns:
           - "*"
+        update-types:
+          - "minor"
+          - "patch"
