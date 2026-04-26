@@ -2,6 +2,7 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import react from '@vitejs/plugin-react';
+import tailwindcss from '@tailwindcss/vite';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { storybookTest } from '@storybook/addon-vitest/vitest-plugin';
@@ -13,7 +14,7 @@ export default defineConfig({
   plugins: [laravel({
     input: 'resources/js/app.tsx',
     refresh: true
-  }), react()],
+  }), react(), tailwindcss()],
   publicDir: 'msw',
   optimizeDeps: {
     include: ['react-slick'],
