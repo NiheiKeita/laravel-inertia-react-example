@@ -20,3 +20,4 @@ yarn-error.log
 
 *storybook.log
 src/coverage
+.DS_Store
