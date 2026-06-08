@@ -60,7 +60,7 @@ jobs:
         run: vendor/bin/phpunit --coverage-clover=coverage.xml
 
       - name: Upload PHP coverage to Codecov
-        uses: codecov/codecov-action@v6
+        uses: codecov/codecov-action@v7
         with:
           files: src/coverage.xml
           flags: backend
@@ -143,7 +143,7 @@ jobs:
         run: npm run test-storybook -- --coverage
 
       - name: Upload frontend coverage to Codecov
-        uses: codecov/codecov-action@v6
+        uses: codecov/codecov-action@v7
         with:
           files: src/coverage/clover.xml
           flags: frontend
