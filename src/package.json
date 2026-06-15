@@ -18,7 +18,7 @@
     "@headlessui/react": "^2.2.10",
     "@inertiajs/react": "^1.0.0",
     "@storybook/addon-docs": "9.1.20",
-    "@storybook/addon-links": "9.1.20",
+    "@storybook/addon-links": "10.4.4",
     "@storybook/addon-onboarding": "9.1.20",
     "@storybook/addon-vitest": "^9.1.20",
     "@storybook/react-vite": "9.1.20",
