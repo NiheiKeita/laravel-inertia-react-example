@@ -4,7 +4,7 @@ import storybook from "eslint-plugin-storybook";
 import globals from "globals"
 import pluginJs from "@eslint/js"
 import tseslint from "typescript-eslint"
-import pluginReact from "eslint-plugin-react"
+import pluginReact from "@eslint-react/eslint-plugin"
 import pluginTailwindcss from "eslint-plugin-tailwindcss"
 
 export default [
@@ -12,23 +12,16 @@ export default [
     { languageOptions: { globals: globals.browser } },
     pluginJs.configs.recommended,
     ...tseslint.configs.recommended,
-    pluginReact.configs.flat.recommended,
+    pluginReact.configs["recommended-typescript"],
     {
-        settings: {
-            react: {
-                version: 'detect',
-            },
-        },
         plugins: {
             tailwindcss: pluginTailwindcss // Use the object format here
         },
         rules: {
-            "react/jsx-uses-react": "off",
-            "react/react-in-jsx-scope": "off",
-            "react/prop-types": "off",
             "@typescript-eslint/no-explicit-any": "off",
             "@typescript-eslint/no-unused-vars": "off",
-            "tailwindcss/classnames-order": "warn",
+            "tailwindcss/classnames-order": "off",
+            "@eslint-react/rules-of-hooks": "warn",
             "semi": ["error", "never"]
         }
     },
