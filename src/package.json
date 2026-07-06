@@ -59,7 +59,7 @@
   "dependencies": {
     "react-slick": "^0.31.0",
     "slick-carousel": "^1.8.1",
-    "ziggy-js": "^2.6.2"
+    "ziggy-js": "^2.6.3"
   },
   "msw": {
     "workerDirectory": [
