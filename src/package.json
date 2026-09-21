@@ -58,7 +58,7 @@
   },
   "dependencies": {
     "react-slick": "^0.31.0",
-    "slick-carousel": "^1.8.1",
+    "slick-carousel": "^2.0.0",
     "ziggy-js": "^2.6.4"
   },
   "msw": {
