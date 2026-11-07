@@ -17,6 +17,8 @@
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
+        "larastan/larastan": "^3.0",
+        "laravel/boost": "^2.10",
         "laravel/breeze": "^2.0",
         "laravel/pint": "^1.0",
         "laravel/sail": "^1.18",
@@ -25,8 +27,7 @@
         "sirbrillig/phpcs-variable-analysis": "^2.11",
         "slevomat/coding-standard": "^8.15",
         "spatie/laravel-ignition": "^2.0",
-        "squizlabs/php_codesniffer": "^3.9",
-        "larastan/larastan": "^3.0"
+        "squizlabs/php_codesniffer": "^3.9"
     },
     "autoload": {
         "psr-4": {
