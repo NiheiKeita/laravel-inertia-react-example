@@ -21,7 +21,7 @@
         "laravel/pint": "^1.0",
         "laravel/sail": "^1.18",
         "mockery/mockery": "^1.4.4",
-        "phpunit/phpunit": "^10.1",
+        "phpunit/phpunit": "^13.4",
         "sirbrillig/phpcs-variable-analysis": "^2.11",
         "slevomat/coding-standard": "^8.15",
         "spatie/laravel-ignition": "^2.0",
